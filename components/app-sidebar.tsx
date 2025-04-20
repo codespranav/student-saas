@@ -1,74 +1,94 @@
-import * as React from "react"  
+"use client"
+
+import * as React from "react"
 import {
+  AudioWaveform,
+  BookOpen,
+  Bot,
+  Command,
+  Frame,
   GalleryVerticalEnd,
-  HomeIcon,
-  MicIcon,
-  Search,
-  Folder,
-  FileText,
-  Users,
+  Map,
+  PieChart,
+  Settings2,
+  SquareTerminal,
 } from "lucide-react"
 
+import { NavMain } from "@/components/nav-main"
+import { NavUser } from "@/components/nav-user"
+import { TeamSwitcher } from "@/components/team-switcher"
 import {
   Sidebar,
   SidebarContent,
-  SidebarGroup,
+  SidebarFooter,
   SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
   SidebarRail,
 } from "@/components/ui/sidebar"
 
 const data = {
+  user: {
+    name: "shadcn", 
+    email: "m@example.com",
+    avatar: "/avatars/shadcn.jpg",
+  },
+  teams: [
+    {
+      name: "Acme Inc",
+      logo: GalleryVerticalEnd,
+      plan: "Enterprise",
+    },
+    {
+      name: "Acme Corp.",
+      logo: AudioWaveform,
+      plan: "Startup",
+    },
+    {
+      name: "Evil Corp.",
+      logo: Command,
+      plan: "Free",
+    },
+  ],
   navMain: [
     {
-      title: "Getting Started",
+      title: "AI Voice to Notes",
       url: "#",
-      icon: HomeIcon,
+      icon: SquareTerminal,
+      isActive: true,
       items: [
         {
-          title: "Record Note",
-          url: "#",
-          icon: MicIcon,
+          title: "Create notes",
+          url: "/dashboard/notes/record-notes",
         },
         {
-          title: "Search",
+          title: "Previous notes",
           url: "#",
-          icon: Search,
+        },
+        {
+          title: "Saved notes",
+          url: "#",
         },
       ],
     },
     {
-      title: "Building Your Application",
+      title: "Settings",
       url: "#",
-      icon: FileText,
+      icon: Settings2,
       items: [
         {
-          title: "Folders",
+          title: "General",
           url: "#",
-          icon: Folder,
         },
         {
-          title: "Your notes",
+          title: "Team",
           url: "#",
-          icon: FileText,
-          isActive: true,
         },
-      ],
-    },
-    {
-      title: "Community",
-      url: "#",
-      icon: Users,
-      items: [
         {
-          title: "Contribution Guide",
+          title: "Billing",
           url: "#",
-          icon: Users,
+        },
+        {
+          title: "Limits",
+          url: "#",
         },
       ],
     },
@@ -77,49 +97,16 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar {...props}>
+    <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton size="lg" asChild>
-              <a href="#">
-                <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                  <GalleryVerticalEnd className="size-4" />
-                </div>
-                <div className="flex flex-col gap-0.5 leading-none">
-                  <span className="font-medium">NoteWave</span>
-                </div>
-              </a>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
+        <TeamSwitcher teams={data.teams} />
       </SidebarHeader>
       <SidebarContent>
-        <SidebarGroup>
-          <SidebarMenu>
-            {data.navMain.map((item) => (
-              <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton asChild>
-                  <a href={item.url} className="font-medium">
-                    {item.title}
-                  </a>
-                </SidebarMenuButton>
-                {item.items?.length ? (
-                  <SidebarMenuSub>
-                    {item.items.map((item) => (
-                      <SidebarMenuSubItem key={item.title}>
-                        <SidebarMenuSubButton asChild isActive={item.isActive}>
-                          <a href={item.url}>{item.title}</a>
-                        </SidebarMenuSubButton>
-                      </SidebarMenuSubItem>
-                    ))}
-                  </SidebarMenuSub>
-                ) : null}
-              </SidebarMenuItem>
-            ))}
-          </SidebarMenu>
-        </SidebarGroup>
+        <NavMain items={data.navMain} />
       </SidebarContent>
+      <SidebarFooter>
+        <NavUser user={data.user} />
+      </SidebarFooter>
       <SidebarRail />
     </Sidebar>
   )
