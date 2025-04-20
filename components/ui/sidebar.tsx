@@ -601,7 +601,7 @@ function SidebarMenuBadge({
 
 function SidebarMenuSkeleton({
   className,
-  showIcon = false,
+  showIcon = true,
   ...props
 }: React.ComponentProps<"div"> & {
   showIcon?: boolean
