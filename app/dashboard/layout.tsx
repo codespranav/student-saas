@@ -25,7 +25,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <Separator orientation="vertical" className="mr-2 h-4" />
             <div className="ml-auto flex items-center">
               <BreadcrumbLink
-                href="/dashboard"
+                href="/dashboard/notes/record-notes"
                 className="flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-white font-bold hover:bg-blue-700 transition-colors"
               >
                 <Mic size={20}/>
